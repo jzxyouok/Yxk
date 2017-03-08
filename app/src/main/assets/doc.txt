@@ -1,0 +1,95 @@
+public class MainActivity extends Activity {
+
+    //直接使用Dbutils，如果不能使用这个类，说明包没有导入成功
+    DbUtils db ;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //创建数据库，名称为mydb
+        db= DbUtils.create(this,"mydb");
+    }
+
+    //保存数据事件
+    public void saveClick(View v){
+        DbUtils db = DbUtils.create(this,"mydb");
+        User user = new User("hyy","272958293@qq.com"); //这里需要注意的是User对象必须有id属性，或者有通过@ID注解的属性
+        try {
+            db.save(user);
+            Toast.makeText(this, "ok",Toast.LENGTH_SHORT).show();
+        } catch (DbException e) {
+            // TODO 自动生成的 catch 块
+            e.printStackTrace();
+        } // 使用saveBindingId保存实体时会为实体的id赋值
+    }
+
+    //查询数据事件
+    public void queryClick(View v){
+        try {
+            List<User> list=db.findAll(User.class);
+            for (User user : list) {
+                System.out.println(user);
+            }
+        } catch (DbException e) {
+            // TODO 自动生成的 catch 块
+            e.printStackTrace();
+        }
+    }
+
+    //根据条件查询事件
+    public void queryByClick(View v){
+        try {
+            User user=db.findFirst(Selector.from(User.class).where("name","=","hyy"));
+            Toast.makeText(this,user.toString(), Toast.LENGTH_SHORT).show();
+        } catch (DbException e) {
+            // TODO 自动生成的 catch 块
+            e.printStackTrace();
+        }
+    }
+
+    //更新数据事件
+    public void updateClick(View v){
+        User user=new User();
+        user.setId(1);
+        user.setName("huyuan");
+        user.setEmail("272958293@qq.com");
+
+        try {
+            db.update(user,"name","email");
+        } catch (DbException e) {
+            // TODO 自动生成的 catch 块
+            e.printStackTrace();
+        }
+    }
+    //删除事件
+    public void deleteClick(View v){
+        try {
+            db.delete(User.class,WhereBuilder.b("id", "=", "1"));
+        } catch (DbException e) {
+            // TODO 自动生成的 catch 块
+            e.printStackTrace();
+        }
+    }
+}
+
+
+ if (!TextUtils.isEmpty(jyzxBeenlists.get(i).getLogo())){
+                Glide.with(mActivitys)
+                        .load(jyzxBeenlists.get(i).getLogo())
+                        .placeholder(R.drawable.fourdeition_failer)
+                        .error(R.drawable.fourdeition_failer)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new GlideRoundTransform(mActivitys, 3))
+                        .crossFade()
+                        .dontAnimate()
+                        .into(viewHolder.logo);
+            }else{
+                Glide.with(mActivitys)
+                        .load(R.drawable.fourdeition_failer)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new GlideRoundTransform(mActivitys, 3))
+                        .crossFade()
+                        .dontAnimate()
+                        .into(viewHolder.logo);
+            }
+

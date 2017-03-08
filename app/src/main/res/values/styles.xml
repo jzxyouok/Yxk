@@ -1,0 +1,58 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:dialogTheme">@style/Theme.DeviceDefault.Dialog</item>-->
+        <!--<item name="android:dialogTheme">@style/quick_option_dialog</item>-->
+        <item name="android:dialogTheme">@style/Theme.DeviceDefault.Dialog</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:screenOrientation">portrait</item>
+        <!-- 设置activity切换动画 -->
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+    </style>
+
+    <style name="Theme.DeviceDefault.Dialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle.DeviceDefault</item>
+    </style>
+
+    <style name="DialogWindowTitle.DeviceDefault">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textAppearance">@style/DialogWindowTitle</item>
+    </style>
+
+    <!-- Dialog主题样式. -->
+    <style name="DialogWindowTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <!-- animation 页面跳转动画样式 -->
+    <style name="activityAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+
+    <!-- 数据加载对话框 -->
+    <style name="custom_dialog_transparent" parent="@android:style/Theme.Dialog">
+        <!-- Dialog的windowFrame框为无 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否漂现在activity上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 去除黑色边框的关键设置项 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 屏幕背景是否变暗 -->
+        <item name="android:backgroundDimAmount">0</item>
+    </style>
+
+</resources>
