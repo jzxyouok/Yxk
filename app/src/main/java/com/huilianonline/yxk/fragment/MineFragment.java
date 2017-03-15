@@ -9,15 +9,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.activity.AlertAddressActivity;
+import com.huilianonline.yxk.activity.MessageListActivity;
+import com.huilianonline.yxk.activity.OrderListActivity;
+import com.huilianonline.yxk.activity.PurchaseHistoryActivity;
 import com.huilianonline.yxk.global.Config;
+import com.huilianonline.yxk.utils.GlideRoundTransform;
 import com.huilianonline.yxk.view.refresh.NoScrollGridView;
 
 import java.util.Objects;
@@ -35,8 +41,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private int[] resourses = {R.drawable.img_mine_daishouhuo, R.drawable.img_mine_yishouhuo, R.drawable.img_mine_shoubaozhang,
             R.drawable.img_mine_daifukuan, R.drawable.img_mine_xiaoxi};
     private String[] names = {"待收货", "已收货", "售后保障", "待付款", "消息"};
-
     private TextView txtAlertAddress;
+    private ImageView imghead;
+    private TextView txtYuE;
 
     @Override
     public void onAttach(Activity activity) {
@@ -65,10 +72,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         imgRight.setOnClickListener(this);
         adapter = new MineListDataAdapter();
         gridView.setAdapter(adapter);
-
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 4){
+                    Intent mIntent = new Intent();
+                    mIntent.setClass(mActivity, MessageListActivity.class);
+                    startActivity(mIntent);
+                }else if (position == 2){
+                    Toast.makeText(mActivity,"暂未开通！",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent mIntent = new Intent();
+                    mIntent.setClass(mActivity, OrderListActivity.class);
+                    startActivity(mIntent);
+                }
+            }
+        });
         txtAlertAddress = (TextView) view.findViewById(R.id.txt_alert_address);
         txtAlertAddress.setOnClickListener(this);
-
+        imghead = (ImageView) view.findViewById(R.id.img_header_icon);
+        Glide.with(mActivity)
+                .load(R.drawable.logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transform(new GlideRoundTransform(mActivity,20))
+                .crossFade()
+                .dontAnimate()
+                .into(imghead);
+        txtYuE = (TextView) view.findViewById(R.id.txt_zhanghuyue);
+        txtYuE.setOnClickListener(this);
     }
 
     @Override
@@ -89,6 +120,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         } else if (v == txtAlertAddress) {
             Intent mIntent = new Intent();
             mIntent.setClass(mActivity, AlertAddressActivity.class);
+            startActivity(mIntent);
+        }else if (v == txtYuE){
+            Intent mIntent = new Intent();
+            mIntent.setClass(mActivity, PurchaseHistoryActivity.class);
             startActivity(mIntent);
         }
     }

@@ -56,6 +56,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingLeft="5dp"
+                android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textColor="@color/title_layout_black"
                 android:textColorHint="@color/title_layout_black"
@@ -180,7 +181,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_emputy_grey"
-        android:listSelector="@color/white"
+        android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
 
 </LinearLayout>

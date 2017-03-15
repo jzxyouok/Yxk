@@ -1,9 +1,14 @@
 package com.huilianonline.yxk;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,12 +42,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ImageView imgMine;
     private TextView txtMine;
 
+    private LocalBroadcastManager localBroadcastManager;
+    private MyBroadcastReceiver bReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter iFilter = new IntentFilter();
+        iFilter.addAction("update_shop_car");
+        bReceiver = new MyBroadcastReceiver();
+        localBroadcastManager.registerReceiver(bReceiver, iFilter);
         initViews();
         setTabSelection(0);
     }
@@ -67,6 +80,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         imgMine = (ImageView) findViewById(R.id.img_tab_mine);
         txtMine = (TextView) findViewById(R.id.txt_tab_mine);
         layoutMine.setOnClickListener(this);
+    }
+
+    private class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("update_shop_car")){
+                setTabSelection(2);
+            }
+        }
     }
 
     @Override
@@ -128,6 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
         }
+//        transaction.commitAllowingStateLoss();
         transaction.commit();
     }
 
@@ -158,5 +181,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         imgMine.setImageResource(R.drawable.img_tab_mine_normal);
         txtMine.setTextColor(Color.parseColor("#666666"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        localBroadcastManager.unregisterReceiver(bReceiver);
     }
 }

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -65,33 +65,38 @@
                     android:layout_height="0dp"
                     android:layout_weight="1.0"/>
 
-                <TextView
+
+                <ImageView
                     android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="-"
-                    android:gravity="center"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/kuang"
-                    android:textColor="@color/title_layout_red"
-                    android:textSize="14sp" />
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:src="@drawable/img_shopcar_jian"/>
 
                 <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
                     android:text="1"
                     android:gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/kuang"
-                    android:textColor="@color/title_layout_red"
-                    android:textSize="14sp" />
+                    android:textColor="@color/title_layout_black"
+                    android:textSize="15sp" />
 
-                <TextView
+
+                <ImageView
                     android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="+"
-                    android:gravity="center"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/kuang"
-                    android:textColor="@color/title_layout_red"
-                    android:textSize="14sp" />
-
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/img_shopcar_jia"/>
 
 
             </LinearLayout>

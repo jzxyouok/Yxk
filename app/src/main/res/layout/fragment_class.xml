@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#F4F4F4"
     android:layout_height="match_parent">
 
    <include layout="@layout/title_layout_class"></include>
@@ -14,6 +15,7 @@
         android:numColumns="3"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
+        android:layout_marginTop="10dp"
         android:verticalSpacing="0.0dip">
     </com.huilianonline.yxk.view.refresh.NoScrollGridView>
 

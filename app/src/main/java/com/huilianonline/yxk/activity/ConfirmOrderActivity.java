@@ -38,11 +38,12 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         title.setText("确认订单");
         back = findViewById(R.id.ll_title_common_back);
         back.setOnClickListener(this);
-
         mPulllistView = (PullToRefreshListView) findViewById(R.id.list_order_confirm_data);
         mListView = mPulllistView.getRefreshableView();
         mPulllistView.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new ConfirmOrderAdapter();
+        View header = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.header_confirm_order,null);
+        mListView.addHeaderView(header);
         mPulllistView.setAdapter(adapter);
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override

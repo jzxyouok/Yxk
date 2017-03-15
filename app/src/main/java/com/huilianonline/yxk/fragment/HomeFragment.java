@@ -6,13 +6,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.activity.AlertAddressActivity;
 import com.huilianonline.yxk.activity.CaptureActivity;
+import com.huilianonline.yxk.activity.PurchaseHistoryActivity;
+import com.huilianonline.yxk.activity.ShopDetailsActivity;
+import com.huilianonline.yxk.activity.ShopListActivity;
+import com.huilianonline.yxk.utils.GlideRoundTransform;
+import com.huilianonline.yxk.view.refresh.NoScrollGridView;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
 
@@ -28,6 +38,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ListView mListView;
     private HomeListDataAdapter adapter;
     private ImageView imgSaoSao;
+    private View header;
+    private NoScrollGridView gridView;
+    private ClassListDataAdapter adapterClass;
+    private TextView txtAlertAddress;
+    private ImageView imghead;
+    private TextView txtYuE;
+    private int[] resourses = {R.drawable.img_class_shenghuochaoshi, R.drawable.img_class_zhongdigongju, R.drawable.img_class_jiayongdianqi,
+            R.drawable.img_class_zhongzihuafei, R.drawable.img_class_jujiashenghuo, R.drawable.img_class_yiyaobaojian,
+            R.drawable.img_class_huwaiyundong, R.drawable.img_class_shoujishuma, R.drawable.img_class_wanjuyuqi};
+    private String[] names = {"生活超市", "种地工具", "家用电器", "种子化肥", "居家生活", "医药保健", "户外运动", "手机数码", "玩具乐器"};
 
     @Override
     public void onAttach(Activity activity) {
@@ -54,7 +74,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mListView = mPulllistView.getRefreshableView();
         mPulllistView.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new HomeListDataAdapter();
-        View header = LayoutInflater.from(mActivity).inflate(R.layout.header_home_shop, null);
+        header = LayoutInflater.from(mActivity).inflate(R.layout.header_home_shop, null);
+        txtAlertAddress = (TextView) header.findViewById(R.id.txt_alert_address);
+        txtAlertAddress.setOnClickListener(this);
+        txtYuE = (TextView) header.findViewById(R.id.txt_zhanghuyue);
+        txtYuE.setOnClickListener(this);
+        gridView = (NoScrollGridView) header.findViewById(R.id.grid_home);
+        imghead = (ImageView) header.findViewById(R.id.img_header_icon);
+        Glide.with(mActivity)
+                .load(R.drawable.logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transform(new GlideRoundTransform(mActivity, 20))
+                .crossFade()
+                .dontAnimate()
+                .into(imghead);
+        adapterClass = new ClassListDataAdapter();
+        gridView.setAdapter(adapterClass);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mIntent = new Intent();
+                mIntent.setClass(mActivity, ShopListActivity.class);
+                startActivity(mIntent);
+            }
+        });
         mListView.removeHeaderView(header);
         mListView.addHeaderView(header);
         mPulllistView.setAdapter(adapter);
@@ -62,14 +105,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                curPage = 1;
-//                getMessageListsData(curPage, "10");
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                curPage++;
-//                getMessageListsData(curPage, "10");
+            }
+        });
+
+        mPulllistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mIntent = new Intent();
+                mIntent.setClass(mActivity, ShopDetailsActivity.class);
+                startActivity(mIntent);
             }
         });
 
@@ -80,6 +128,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (v == imgSaoSao) {
             Intent intent = new Intent(mActivity, CaptureActivity.class);
             startActivityForResult(intent, 0);
+        } else if (v == txtAlertAddress) {
+            Intent mIntent = new Intent();
+            mIntent.setClass(mActivity, AlertAddressActivity.class);
+            startActivity(mIntent);
+        } else if (v == txtYuE) {
+            Intent mIntent = new Intent();
+            mIntent.setClass(mActivity, PurchaseHistoryActivity.class);
+            startActivity(mIntent);
         }
     }
 
@@ -90,22 +146,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (resultCode == mActivity.RESULT_OK) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
-            Toast.makeText(mActivity,scanResult,Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, scanResult, Toast.LENGTH_SHORT).show();
 
         }
     }
 
     public class HomeListDataAdapter extends BaseAdapter {
 
-//        private List<MessageBean.DataBeanA.DataBean> mdatalists;
-//
-//        public MessageAdapter(List<MessageBean.DataBeanA.DataBean> datalistst) {
-//            this.mdatalists = datalistst;
-//        }
-
         @Override
         public int getCount() {
-//            return mdatalists.size();
             return 10;
         }
 
@@ -125,26 +174,60 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             if (convertView == null) {
                 holder = new Holder();
                 convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_home_data, null);
-//                holder.textSender = (TextView) convertView.findViewById(R.id.tv_message_sender);
-//                holder.textSenderTime = (TextView) convertView.findViewById(R.id.tv_message_sender_time);
-//                holder.textSendDes = (TextView) convertView.findViewById(R.id.tv_message_send_shot_des);
-//                holder.textSendConte = (TextView) convertView.findViewById(R.id.tv_message_send_shot_content);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();
             }
-//            holder.textSender.setText(mdatalists.get(position).getOperaUserName());
-//            holder.textSenderTime.setText(mdatalists.get(position).getPushTime());
-//            holder.textSendDes.setText(mdatalists.get(position).getTitle());
-//            holder.textSendConte.setText(mdatalists.get(position).getContent());
             return convertView;
         }
 
         class Holder {
-//            private TextView textSender;
-//            private TextView textSenderTime;
-//            private TextView textSendDes;
-//            private TextView textSendConte;
+        }
+    }
+
+
+    public class ClassListDataAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return resourses.length;
+        }
+
+        @Override
+        public Objects getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Holder holder = null;
+            if (convertView == null) {
+                holder = new Holder();
+                convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);
+                holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
+                holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (Holder) convertView.getTag();
+            }
+            Glide.with(mActivity)
+                    .load(resourses[position])
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .crossFade()
+                    .dontAnimate()
+                    .into(holder.imgClassIcon);
+            holder.txtClassIcon.setText(names[position]);
+            return convertView;
+        }
+
+        class Holder {
+            private ImageView imgClassIcon;
+            private TextView txtClassIcon;
         }
     }
 }

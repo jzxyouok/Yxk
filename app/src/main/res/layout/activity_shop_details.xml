@@ -24,6 +24,7 @@
         android:layout_height="50dp">
 
         <LinearLayout
+            android:id="@+id/layout_search"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -44,6 +45,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_message"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -64,6 +66,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_shopCar"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -90,6 +93,7 @@
             android:layout_weight="1.0"/>
 
         <TextView
+            android:id="@+id/txt_add_cart"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"

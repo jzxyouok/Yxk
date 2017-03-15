@@ -7,18 +7,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@color/title_layout_red"
         android:gravity="center">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1.0"
             android:background="@color/white"
+            android:gravity="center_vertical"
             android:focusableInTouchMode="true">
 
             <ImageView
@@ -41,6 +42,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:hint="请输入您想要搜索的内容"
+                android:paddingTop="3dp"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingLeft="5dp"
@@ -48,7 +50,7 @@
                 android:textColor="@color/title_layout_black"
                 android:textColorHint="@color/title_layout_black"
                 android:textCursorDrawable="@null"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_cancle_input_search"
@@ -71,7 +73,7 @@
             android:gravity="center"
             android:text="取消"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

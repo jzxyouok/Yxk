@@ -1,28 +1,41 @@
 package com.huilianonline.yxk.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.huilianonline.yxk.MainActivity;
 import com.huilianonline.yxk.R;
 
 /**
  * Created by admin on 2017/3/13.
  */
-public class ShopDetailsActivity extends BaseActivity {
+public class ShopDetailsActivity extends BaseActivity implements View.OnClickListener {
 
     public WebView mWebview;
     private ProgressBar progressbar_hori_webview;// webview 加载的进度
     private String url = "http://www.baidu.com";
+    private TextView txtAddCar;
+    private View search;
+    private View message;
+    private View shopCar;
+    private LocalBroadcastManager localBroadcastManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
+        localBroadcastManager=LocalBroadcastManager.getInstance(this);
         initView();
 
     }
@@ -49,8 +62,43 @@ public class ShopDetailsActivity extends BaseActivity {
         webseting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webseting.setLoadsImagesAutomatically(true);
         mWebview.setWebChromeClient(new chooseProductWebChromeClient());
+        mWebview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         mWebview.loadUrl(url);
+        txtAddCar = (TextView) findViewById(R.id.txt_add_cart);
+        txtAddCar.setOnClickListener(this);
+        search = findViewById(R.id.layout_search);
+        message = findViewById(R.id.layout_message);
+        shopCar = findViewById(R.id.layout_shopCar);
+        search.setOnClickListener(this);
+        message.setOnClickListener(this);
+        shopCar.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v == txtAddCar) {
+            Toast.makeText(ShopDetailsActivity.this,"添加成功！",Toast.LENGTH_SHORT).show();
+        } else if (v == search) {
+            Intent intent = new Intent();
+            intent.setClass(ShopDetailsActivity.this, SearchActivity.class);
+            startActivity(intent);
+        } else if (v == message) {
+            Intent intent = new Intent();
+            intent.setClass(ShopDetailsActivity.this, MessageListActivity.class);
+            startActivity(intent);
+        } else if (v == shopCar) {
+            Intent intent = new Intent();
+            intent.setAction("update_shop_car");
+            localBroadcastManager.sendBroadcast(intent);
+            intent.setClass(ShopDetailsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -71,5 +119,15 @@ public class ShopDetailsActivity extends BaseActivity {
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
         }
+    }
+
+    // 覆盖onKeydown 添加处理WebView 界面内返回事件处理
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mWebview.canGoBack()) {
+            mWebview.goBack();// 返回前一个页面
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

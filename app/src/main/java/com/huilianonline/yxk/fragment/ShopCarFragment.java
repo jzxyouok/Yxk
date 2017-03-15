@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.activity.ConfirmOrderActivity;
-import com.huilianonline.yxk.activity.ShopDetailsActivity;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
 
@@ -60,14 +59,10 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                curPage = 1;
-//                getMessageListsData(curPage, "10");
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                curPage++;
-//                getMessageListsData(curPage, "10");
             }
         });
         txtJieSuan = (TextView) view.findViewById(R.id.txt_jiesuan);
@@ -106,25 +101,14 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
             if (convertView == null) {
                 holder = new Holder();
                 convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_shopcar_data, null);
-//                holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
-//                holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();
             }
-//            Glide.with(mActivity)
-//                    .load(resourses[position])
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .crossFade()
-//                    .dontAnimate()
-//                    .into(holder.imgClassIcon);
-//            holder.txtClassIcon.setText(names[position]);
             return convertView;
         }
 
         class Holder {
-//            private ImageView imgClassIcon;
-//            private TextView txtClassIcon;
         }
     }
 }

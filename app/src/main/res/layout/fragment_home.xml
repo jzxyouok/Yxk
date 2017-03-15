@@ -11,9 +11,10 @@
        android:id="@+id/list_home_list_data"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:listSelector="@color/white"
+       android:listSelector="@android:color/transparent"
        android:background="@color/color_emputy_grey"
-       android:scrollbars="none" />
+       android:scrollbars="none"
+       />
 
 
 </LinearLayout>
