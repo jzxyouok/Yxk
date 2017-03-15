@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">易小康</string>
+
+    <string name="scan">扫一扫</string>
+    <string name="scan_tip">请将条码放到取景框中,即可自动扫描</string>
+    <string name="torch_on">打开闪光灯</string>
+    <string name="torch_off">关闭闪光灯</string>
 </resources>

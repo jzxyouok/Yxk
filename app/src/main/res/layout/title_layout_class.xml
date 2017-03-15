@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/img_class_back"
-            android:layout_width="15dp"
-            android:layout_height="27dp"
+            android:layout_width="10dp"
+            android:layout_height="18dp"
             android:scaleType="fitCenter"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/img_saoyisao"
-            android:layout_width="31.5dp"
-            android:layout_height="28.5dp"
+            android:layout_width="21dp"
+            android:layout_height="19dp"
             android:scaleType="fitCenter"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

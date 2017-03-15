@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_weight="1.0"
+            android:lines="2"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/title_layout_black"
+            android:text="Beats Solo2 Wireless头戴耳机Wireless头戴耳机"/>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_weight="1.0"
+                android:singleLine="true"
+                android:textColor="@color/color_erji_content"
+                android:text="2017-01-02"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_weight="1.0"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:text="¥2288.0"/>
+        </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

@@ -1,6 +1,10 @@
 package com.huilianonline.yxk.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.activity.AlertAddressActivity;
+import com.huilianonline.yxk.global.Config;
 import com.huilianonline.yxk.view.refresh.NoScrollGridView;
 
 import java.util.Objects;
@@ -19,16 +25,18 @@ import java.util.Objects;
 /**
  * Created by admin on 2017/3/2.
  */
-public class MineFragment extends BaseFragment{
+public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private Activity mActivity;
     private TextView title;
     private ImageView imgRight;
     private NoScrollGridView gridView;
     private MineListDataAdapter adapter;
-    private int[] resourses = {R.drawable.img_mine_daishouhuo,R.drawable.img_mine_yishouhuo,R.drawable.img_mine_shoubaozhang,
-            R.drawable.img_mine_daifukuan,R.drawable.img_mine_xiaoxi};
-    private String[] names = {"待收货","已收货","售后保障","待付款","消息"};
+    private int[] resourses = {R.drawable.img_mine_daishouhuo, R.drawable.img_mine_yishouhuo, R.drawable.img_mine_shoubaozhang,
+            R.drawable.img_mine_daifukuan, R.drawable.img_mine_xiaoxi};
+    private String[] names = {"待收货", "已收货", "售后保障", "待付款", "消息"};
+
+    private TextView txtAlertAddress;
 
     @Override
     public void onAttach(Activity activity) {
@@ -54,53 +62,79 @@ public class MineFragment extends BaseFragment{
         imgRight = (ImageView) view.findViewById(R.id.img_saoyisao);
         title.setText("我的");
         imgRight.setImageResource(R.drawable.img_mine_telphone);
+        imgRight.setOnClickListener(this);
         adapter = new MineListDataAdapter();
         gridView.setAdapter(adapter);
 
+        txtAlertAddress = (TextView) view.findViewById(R.id.txt_alert_address);
+        txtAlertAddress.setOnClickListener(this);
+
     }
 
-    public class MineListDataAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return resourses.length;
+    @Override
+    public void onClick(View v) {
+        if (v == imgRight) {
+            new AlertDialog.Builder(mActivity).setTitle("拨打电话").setMessage(Config.TEL_SERVER)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + Config.TEL_SERVER)));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    })
+                    .setNegativeButton("取消", null).create().show();
+        } else if (v == txtAlertAddress) {
+            Intent mIntent = new Intent();
+            mIntent.setClass(mActivity, AlertAddressActivity.class);
+            startActivity(mIntent);
         }
+    }
 
-        @Override
-        public Objects getItem(int position) {
-            return null;
-        }
+        public class MineListDataAdapter extends BaseAdapter {
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Holder holder = null;
-            if (convertView == null) {
-                holder = new Holder();
-                convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);
-                holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
-                holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
-                convertView.setTag(holder);
-            } else {
-                holder = (Holder) convertView.getTag();
+            @Override
+            public int getCount() {
+                return resourses.length;
             }
-            Glide.with(mActivity)
-                    .load(resourses[position])
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .crossFade()
-                    .dontAnimate()
-                    .into(holder.imgClassIcon);
-            holder.txtClassIcon.setText(names[position]);
-            return convertView;
-        }
 
-        class Holder {
-            private ImageView imgClassIcon;
-            private TextView txtClassIcon;
+            @Override
+            public Objects getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Holder holder = null;
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);
+                    holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
+                    holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                Glide.with(mActivity)
+                        .load(resourses[position])
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .crossFade()
+                        .dontAnimate()
+                        .into(holder.imgClassIcon);
+                holder.txtClassIcon.setText(names[position]);
+                return convertView;
+            }
+
+            class Holder {
+                private ImageView imgClassIcon;
+                private TextView txtClassIcon;
+            }
         }
     }
-}

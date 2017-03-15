@@ -1,6 +1,7 @@
 package com.huilianonline.yxk.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.activity.ConfirmOrderActivity;
+import com.huilianonline.yxk.activity.ShopDetailsActivity;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
 
@@ -18,13 +21,14 @@ import java.util.Objects;
 /**
  * Created by admin on 2017/3/2.
  */
-public class ShopCarFragment extends BaseFragment {
+public class ShopCarFragment extends BaseFragment implements View.OnClickListener{
 
     private Activity mActivity;
     private TextView title;
     private PullToRefreshListView mPulllistView;
     private ListView mListView;
     private ShopCarListDataAdapter adapter;
+    private TextView txtJieSuan;
 
     @Override
     public void onAttach(Activity activity) {
@@ -66,6 +70,17 @@ public class ShopCarFragment extends BaseFragment {
 //                getMessageListsData(curPage, "10");
             }
         });
+        txtJieSuan = (TextView) view.findViewById(R.id.txt_jiesuan);
+        txtJieSuan.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == txtJieSuan){
+            Intent intent = new Intent();
+            intent.setClass(mActivity,ConfirmOrderActivity.class);
+            startActivity(intent);
+        }
     }
 
     public class ShopCarListDataAdapter extends BaseAdapter {

@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity {
 
                     }
 
-                }, 500);
+                }, 400);
             }
 
             @Override
@@ -57,7 +57,8 @@ public class SplashActivity extends BaseActivity {
     // 跳转到主界面
     protected void goMainActivity() {
         Intent intent = new Intent();
-        intent.setClass(SplashActivity.this,MainActivity.class);
+        intent.setClass(SplashActivity.this,ManageSetingActivity.class);
+//        intent.setClass(SplashActivity.this,ConfirmOrderActivity.class);
         startActivity(intent);
         finish();
     }
