@@ -93,3 +93,32 @@ public class MainActivity extends Activity {
                         .into(viewHolder.logo);
             }
 
+
+
+//    private LocalBroadcastManager localBroadcastManager;
+//        localBroadcastManager=LocalBroadcastManager.getInstance(this);
+            Intent intent = new Intent();
+//            intent.setAction("update_shop_car");
+//            localBroadcastManager.sendBroadcast(intent);
+
+
+//    private LocalBroadcastManager localBroadcastManager;
+//    private MyBroadcastReceiver bReceiver;
+//        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+//        IntentFilter iFilter = new IntentFilter();
+//        iFilter.addAction("update_shop_car");
+//        bReceiver = new MyBroadcastReceiver();
+//        localBroadcastManager.registerReceiver(bReceiver, iFilter);
+//    private class MyBroadcastReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("update_shop_car")){
+//                setTabSelection(2);
+//            }
+//        }
+//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        localBroadcastManager.unregisterReceiver(bReceiver);
+    }

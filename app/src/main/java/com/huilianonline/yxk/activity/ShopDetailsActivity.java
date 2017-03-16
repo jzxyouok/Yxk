@@ -3,7 +3,6 @@ package com.huilianonline.yxk.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -24,18 +23,16 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
 
     public WebView mWebview;
     private ProgressBar progressbar_hori_webview;// webview 加载的进度
-    private String url = "http://www.baidu.com";
+    private String url = "http://yxkservice.huilianonline.com/Product/ProductDetail";
     private TextView txtAddCar;
     private View search;
     private View message;
     private View shopCar;
-    private LocalBroadcastManager localBroadcastManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
-        localBroadcastManager=LocalBroadcastManager.getInstance(this);
         initView();
 
     }
@@ -94,8 +91,7 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
             startActivity(intent);
         } else if (v == shopCar) {
             Intent intent = new Intent();
-            intent.setAction("update_shop_car");
-            localBroadcastManager.sendBroadcast(intent);
+            intent.putExtra("flag_main",2);
             intent.setClass(ShopDetailsActivity.this, MainActivity.class);
             startActivity(intent);
         }

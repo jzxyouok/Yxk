@@ -7,7 +7,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.huilianonline.yxk.MainActivity;
 import com.huilianonline.yxk.R;
 
 /**

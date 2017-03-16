@@ -117,15 +117,15 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="#F4F4F4"
-
         android:gravity="center">
 
-        <TextView
+
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--"
-            android:textColor="@color/title_layout_red"
-            android:textSize="16sp" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_tiao"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -136,12 +136,11 @@
             android:textColor="@color/title_layout_red"
             android:textSize="16sp" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--"
-            android:textColor="@color/title_layout_red"
-            android:textSize="16sp" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_tiao"/>
 
     </LinearLayout>
 
