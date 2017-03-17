@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.huilianonline.yxk.MyApplication;
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.utils.AppManager;
 import com.huilianonline.yxk.utils.NetWorkUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends FragmentActivity {
 
@@ -31,17 +33,9 @@ public abstract class BaseActivity extends FragmentActivity {
         if (!isConn){
             NetWorkUtils.setNetworkMethod(mContext);
         }
-
-    }
-
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen",
-                "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
+        // 添加Activity到堆栈
+        AppManager.getAppManager().addActivity(this);
+        MyApplication.getmActList().add(this);
     }
 
     @Override
@@ -53,8 +47,9 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 结束Activity&从堆栈中移除
-//        AppManager.getAppManager().finishActivity(this);
+        AppManager.getAppManager().finishActivity(this);
     }
+
     private long firstTime = 0;
 
     /**
@@ -156,9 +151,12 @@ public abstract class BaseActivity extends FragmentActivity {
 
     public void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
     }
+
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

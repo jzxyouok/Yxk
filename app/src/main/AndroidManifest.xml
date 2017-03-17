@@ -120,6 +120,11 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
 
+        <!-- 应用统计推送 -->
+        <meta-data android:value="58cb43e44ad156159f0023da" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${UMENG_CHANNEL_MARKET}" android:name="UMENG_CHANNEL"/>
+        <meta-data android:name="UMENG_MESSAGE_SECRET" android:value="f9db3c04f7d937f59855953a217059fd"/>
+
     </application>
 
 </manifest>

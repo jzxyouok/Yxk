@@ -4,6 +4,15 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+//    signingConfigs {
+//        debug {
+//            storeFile file('zhcaoyuan.jks')
+//            storePassword "123456"
+//            keyAlias "caoyuan"
+//            keyPassword "123456"
+//        }
+//    }
+
     defaultConfig {
         applicationId "com.huilianonline.yxk"
         minSdkVersion 15
@@ -23,6 +32,11 @@ android {
         }
     }
 
+//    task clean(type: Delete) {
+//        delete rootProject.buildDir
+//    }
+
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -34,6 +48,44 @@ android {
 //            assets.srcDirs = ['src/main/assets']
 //            jniLibs.srcDir 'src/main/jniLibs'
         }
+    }
+
+    //渠道Flavors，配置不同风格的app
+    productFlavors {
+        "91Market" {//91助手
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "91Market"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "91"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"1\""
+        }
+        AnZhiMarket {
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "AnZhiMarket"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "安智市场"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"4\""
+        }
+        TencentMarket {//腾讯应用宝
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "TencentMarket"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "Tencent"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"9\""
+        }
+        "360Market" {
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "360Market"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "360软件发布平台"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"13\""
+        }
+        BaiDuMarket {//百度应用平台
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "BaiDuMarket"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "Baidu"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"14\""
+        }
+        XiaoMiMarket {//小米市场
+            manifestPlaceholders = [UMENG_CHANNEL_MARKET: "XiaoMiMarket"]
+            manifestPlaceholders = [UMENG_CHANNEL_NAME: "Xiaomi"]
+            buildConfigField "String", "UMENG_PACKAGE_FROM", "\"17\""
+        }
+    }
+    //批量配置
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_MARKET: name, UMENG_CHANNEL_NAME : name]
     }
 }
 
@@ -47,4 +99,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile files('libs/sun.misc.BASE64Decoder.jar')
     compile files('libs/zbar.jar')
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile project(':PushSDK')
 }
