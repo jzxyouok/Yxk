@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private NoScrollGridView gridView;
     private ClassListDataAdapter adapterClass;
     private TextView txtAlertAddress;
-    private ImageView imghead;
+//    private ImageView imghead;
     private TextView txtYuE;
     private int[] resourses = {R.drawable.img_class_shenghuochaoshi, R.drawable.img_class_zhongdigongju, R.drawable.img_class_jiayongdianqi,
             R.drawable.img_class_zhongzihuafei, R.drawable.img_class_jujiashenghuo, R.drawable.img_class_yiyaobaojian,
@@ -80,14 +80,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         txtYuE = (TextView) header.findViewById(R.id.txt_zhanghuyue);
         txtYuE.setOnClickListener(this);
         gridView = (NoScrollGridView) header.findViewById(R.id.grid_home);
-        imghead = (ImageView) header.findViewById(R.id.img_header_icon);
-        Glide.with(mActivity)
-                .load(R.drawable.logo)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transform(new GlideRoundTransform(mActivity, 20))
-                .crossFade()
-                .dontAnimate()
-                .into(imghead);
+//        imghead = (ImageView) header.findViewById(R.id.img_header_icon);
+//        Glide.with(mActivity)
+//                .load(R.drawable.logo)
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .transform(new GlideRoundTransform(mActivity, 20))
+//                .crossFade()
+//                .dontAnimate()
+//                .into(imghead);
         adapterClass = new ClassListDataAdapter();
         gridView.setAdapter(adapterClass);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -350,5 +350,7 @@
     <color name="result_points">#c000ff00</color>
     <color name="result_text">#ffffffff</color>
     <color name="result_view">#b0000000</color>
+    <!--图片没预加载背景 -->
+    <color name="pic_err_bg">#eee</color>
 
 </resources>

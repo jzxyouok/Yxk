@@ -15,7 +15,7 @@ import com.huilianonline.yxk.R;
 public class SplashActivity extends BaseActivity {
 
     private ImageView mImgWelcome;
-    private Animation alphaAnimation = null;
+    private Animation alphaAnimation ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class SplashActivity extends BaseActivity {
     // 跳转到主界面
     protected void goMainActivity() {
         Intent intent = new Intent();
-        intent.setClass(SplashActivity.this,ManageSetingActivity.class);
+        intent.setClass(SplashActivity.this, ManageSetingActivity.class);
 //        intent.setClass(SplashActivity.this,ConfirmOrderActivity.class);
         startActivity(intent);
         finish();

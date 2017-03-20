@@ -42,8 +42,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             R.drawable.img_mine_daifukuan, R.drawable.img_mine_xiaoxi};
     private String[] names = {"待收货", "已收货", "售后保障", "待付款", "消息"};
     private TextView txtAlertAddress;
-    private ImageView imghead;
+//    private ImageView imghead;
     private TextView txtYuE;
+    private TextView txtCallPhone;
 
     @Override
     public void onAttach(Activity activity) {
@@ -70,6 +71,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         title.setText("我的");
         imgRight.setImageResource(R.drawable.img_mine_telphone);
         imgRight.setOnClickListener(this);
+        txtCallPhone = (TextView) view.findViewById(R.id.txt_call_phone);
+        txtCallPhone.setOnClickListener(this);
         adapter = new MineListDataAdapter();
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,21 +93,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         });
         txtAlertAddress = (TextView) view.findViewById(R.id.txt_alert_address);
         txtAlertAddress.setOnClickListener(this);
-        imghead = (ImageView) view.findViewById(R.id.img_header_icon);
-        Glide.with(mActivity)
-                .load(R.drawable.logo)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transform(new GlideRoundTransform(mActivity,20))
-                .crossFade()
-                .dontAnimate()
-                .into(imghead);
+//        imghead = (ImageView) view.findViewById(R.id.img_header_icon);
+//        Glide.with(mActivity)
+//                .load(R.drawable.logo)
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .transform(new GlideRoundTransform(mActivity,20))
+//                .crossFade()
+//                .dontAnimate()
+//                .into(imghead);
         txtYuE = (TextView) view.findViewById(R.id.txt_zhanghuyue);
         txtYuE.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == imgRight) {
+        if (v == imgRight||v == txtCallPhone) {
             new AlertDialog.Builder(mActivity).setTitle("拨打电话").setMessage(Config.TEL_SERVER)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override

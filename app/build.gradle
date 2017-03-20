@@ -93,6 +93,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23+'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile 'io.reactivex:rxjava:1.1.6'
     compile files('libs/gson-2.7.jar')
     compile files('libs/org.apache.http.legacy.jar')
     compile files('libs/xUtils-2.6.14.jar')
@@ -101,4 +103,5 @@ dependencies {
     compile files('libs/zbar.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':PushSDK')
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }

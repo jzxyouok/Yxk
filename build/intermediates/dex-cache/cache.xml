@@ -1,3 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="D:\ZZ\Yxk\app\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="D:\ZZ\Yxk\app\build\intermediates\transforms\dex\360Market\debug\folders\1000\2\nineoldandroids-2.4.0_5cf2df7073cca09b9684093009065e9cee72c2d2\classes.dex" />
+    </item>
+    <item
+        jar="D:\ZZ\Yxk\app\build\intermediates\exploded-aar\com.tbruyelle.rxpermissions\rxpermissions\0.7.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="50fd38504119ea609c269abf98af75fb14e82f2c">
+        <dex dex="D:\ZZ\Yxk\app\build\intermediates\transforms\dex\360Market\debug\folders\1000\10\com.tbruyelle.rxpermissions-rxpermissions-0.7.0_14377c708623e5b0c6e9a47473c29aa6c2feb7d2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\admin\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.6\2586312cd2b8a511e4c6236736f5a039fc0f2273\rxjava-1.1.6.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
+        <dex dex="D:\ZZ\Yxk\app\build\intermediates\transforms\dex\360Market\debug\folders\1000\10\rxjava-1.1.6_abfed394ec2606f410882078ac31f2b26911cca9\classes.dex" />
+    </item>
+    <item
+        jar="D:\ZZ\Yxk\app\build\intermediates\incremental-classes\360Market\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="2744dab2ed85920e72820ddfe9eb017ecd068014">
+        <dex dex="D:\ZZ\Yxk\app\build\intermediates\transforms\dex\360Market\debug\folders\1000\10\instant-run-bootstrap_b6ccc1b7249b47d183e945df3edab6fe0184bdd8\classes.dex" />
+    </item>
+
+</items>

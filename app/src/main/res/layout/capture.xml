@@ -23,19 +23,25 @@
         <RelativeLayout
             android:id="@+id/rl_title"
             android:layout_width="fill_parent"
-            android:layout_height="50.0dip"
+            android:layout_height="45.0dip"
             android:layout_alignParentTop="true"
             android:background="#ffD53C32">
 
-            <ImageView
-                android:id="@+id/iv_title_back"
-                android:layout_width="10dp"
-                android:layout_height="18dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_class_back" />
+            <LinearLayout
+                android:id="@+id/ll_title_common_back"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/img_class_back" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_title_text"

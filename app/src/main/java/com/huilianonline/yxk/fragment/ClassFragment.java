@@ -10,10 +10,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.activity.CaptureActivity;
 import com.huilianonline.yxk.activity.ManageSetingActivity;
 import com.huilianonline.yxk.activity.SearchActivity;
 import com.huilianonline.yxk.activity.ShopListActivity;
@@ -34,6 +36,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener{
             R.drawable.img_class_huwaiyundong,R.drawable.img_class_shoujishuma,R.drawable.img_class_wanjuyuqi};
     private String[] names = {"生活超市","种地工具","家用电器","种子化肥","居家生活","医药保健","户外运动","手机数码","玩具乐器"};
     private ImageView search;
+    private ImageView imgSaoSao;
 
     @Override
     public void onAttach(Activity activity) {
@@ -54,6 +57,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener{
     }
 
     private void initView(View view) {
+        imgSaoSao = (ImageView) view.findViewById(R.id.img_saoyisao);
+        imgSaoSao.setOnClickListener(this);
         gridView = (NoScrollGridView) view.findViewById(R.id.gridview);
         adapter = new ClassListDataAdapter();
         gridView.setAdapter(adapter);
@@ -75,6 +80,20 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener{
             Intent intent = new Intent();
             intent.setClass(mActivity,SearchActivity.class);
             startActivity(intent);
+        }else if (v == imgSaoSao) {
+            Intent intent = new Intent(mActivity, CaptureActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == mActivity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Toast.makeText(mActivity, scanResult, Toast.LENGTH_SHORT).show();
+
         }
     }
 

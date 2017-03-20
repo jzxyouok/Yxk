@@ -11,12 +11,11 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/img_header_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/img_user_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,6 +55,7 @@
                 android:drawableLeft="@drawable/img_home_telphone"
                 android:text="账户余额：¥200"
                 android:textColor="@color/title_layout_red"
+                android:visibility="invisible"
                 android:textSize="15sp" />
 
         </LinearLayout>

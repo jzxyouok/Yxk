@@ -38,11 +38,9 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback,
     private boolean flag = true;
     private boolean hasSurface = false;
     private ViewfinderView viewfinderView;
-    private ImageView iv_title_back;
+    private View iv_title_back;
     private ImageView iv_flashlight;
     private ScreenOffReceiver mScreenOffReceiver = new ScreenOffReceiver();
-    ;
-
 
     private static final float BEEP_VOLUME = 0.20f;
     private static final long VIBRATE_DURATION = 200L;
@@ -141,7 +139,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback,
         this.viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
         this.iv_flashlight = (ImageView) findViewById(R.id.iv_flashlight);
         this.iv_flashlight.setOnClickListener(this);
-        this.iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        this.iv_title_back = findViewById(R.id.ll_title_common_back);
         this.iv_title_back.setOnClickListener(this);
 
         this.hasSurface = false;
@@ -230,7 +228,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback,
             case R.id.iv_flashlight:
                 light();
                 break;
-            case R.id.iv_title_back:
+            case R.id.ll_title_common_back:
                 this.finish();
                 break;
         }

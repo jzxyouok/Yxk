@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.activity.CaptureActivity;
 import com.huilianonline.yxk.activity.ConfirmOrderActivity;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
@@ -20,7 +23,7 @@ import java.util.Objects;
 /**
  * Created by admin on 2017/3/2.
  */
-public class ShopCarFragment extends BaseFragment implements View.OnClickListener{
+public class ShopCarFragment extends BaseFragment implements View.OnClickListener {
 
     private Activity mActivity;
     private TextView title;
@@ -28,6 +31,7 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
     private ListView mListView;
     private ShopCarListDataAdapter adapter;
     private TextView txtJieSuan;
+    private ImageView imgSaoSao;
 
     @Override
     public void onAttach(Activity activity) {
@@ -48,6 +52,8 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+        imgSaoSao = (ImageView) view.findViewById(R.id.img_saoyisao);
+        imgSaoSao.setOnClickListener(this);
         title = (TextView) view.findViewById(R.id.txt_title);
         title.setText("购物车");
         mPulllistView = (PullToRefreshListView) view.findViewById(R.id.list_shopcar_list_data);
@@ -71,10 +77,24 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v == txtJieSuan){
+        if (v == txtJieSuan) {
             Intent intent = new Intent();
-            intent.setClass(mActivity,ConfirmOrderActivity.class);
+            intent.setClass(mActivity, ConfirmOrderActivity.class);
             startActivity(intent);
+        } else if (v == imgSaoSao) {
+            Intent intent = new Intent(mActivity, CaptureActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == mActivity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Toast.makeText(mActivity, scanResult, Toast.LENGTH_SHORT).show();
+
         }
     }
 
