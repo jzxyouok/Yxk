@@ -3,6 +3,7 @@ package com.huilianonline.yxk.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,28 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.activity.AlertAddressActivity;
 import com.huilianonline.yxk.activity.CaptureActivity;
-import com.huilianonline.yxk.activity.PurchaseHistoryActivity;
 import com.huilianonline.yxk.activity.ShopDetailsActivity;
 import com.huilianonline.yxk.activity.ShopListActivity;
-import com.huilianonline.yxk.utils.GlideRoundTransform;
+import com.huilianonline.yxk.global.ConstantValues;
+import com.huilianonline.yxk.utils.Json_U;
+import com.huilianonline.yxk.utils.PrefUtils;
+import com.huilianonline.yxk.utils.ToastUtils;
 import com.huilianonline.yxk.view.refresh.NoScrollGridView;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
+import com.huilianonline.yxk.vo.ClassBean;
+import com.huilianonline.yxk.vo.RequestBean;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -42,12 +57,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private NoScrollGridView gridView;
     private ClassListDataAdapter adapterClass;
     private TextView txtAlertAddress;
-//    private ImageView imghead;
-    private TextView txtYuE;
     private int[] resourses = {R.drawable.img_class_shenghuochaoshi, R.drawable.img_class_zhongdigongju, R.drawable.img_class_jiayongdianqi,
             R.drawable.img_class_zhongzihuafei, R.drawable.img_class_jujiashenghuo, R.drawable.img_class_yiyaobaojian,
             R.drawable.img_class_huwaiyundong, R.drawable.img_class_shoujishuma, R.drawable.img_class_wanjuyuqi};
     private String[] names = {"生活超市", "种地工具", "家用电器", "种子化肥", "居家生活", "医药保健", "户外运动", "手机数码", "玩具乐器"};
+    private ClassBean classBean;
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -65,6 +80,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
     private void initView(View view) {
@@ -77,19 +93,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         header = LayoutInflater.from(mActivity).inflate(R.layout.header_home_shop, null);
         txtAlertAddress = (TextView) header.findViewById(R.id.txt_alert_address);
         txtAlertAddress.setOnClickListener(this);
-        txtYuE = (TextView) header.findViewById(R.id.txt_zhanghuyue);
-        txtYuE.setOnClickListener(this);
+        TextView name = (TextView) header.findViewById(R.id.txt_user_name);
+        TextView phone = (TextView) header.findViewById(R.id.txt_user_phone);
+        TextView address = (TextView) header.findViewById(R.id.txt_user_address);
+        name.setText((String) PrefUtils.getParam(mActivity, "RealName", ""));
+        phone.setText((String) PrefUtils.getParam(mActivity, "Tel", ""));
+        address.setText((String) PrefUtils.getParam(mActivity, "Address", ""));
         gridView = (NoScrollGridView) header.findViewById(R.id.grid_home);
-//        imghead = (ImageView) header.findViewById(R.id.img_header_icon);
-//        Glide.with(mActivity)
-//                .load(R.drawable.logo)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .transform(new GlideRoundTransform(mActivity, 20))
-//                .crossFade()
-//                .dontAnimate()
-//                .into(imghead);
-        adapterClass = new ClassListDataAdapter();
-        gridView.setAdapter(adapterClass);
+        GetParentList();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -132,11 +143,46 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             Intent mIntent = new Intent();
             mIntent.setClass(mActivity, AlertAddressActivity.class);
             startActivity(mIntent);
-        } else if (v == txtYuE) {
-            Intent mIntent = new Intent();
-            mIntent.setClass(mActivity, PurchaseHistoryActivity.class);
-            startActivity(mIntent);
         }
+    }
+
+    /**
+     * 获取分类
+     */
+    private void GetParentList() {
+        RequestParams params = new RequestParams();
+        RequestBean bean = new RequestBean();
+        bean.setParentClassID("0");
+        String json = Json_U.toJson(bean);
+        params.addQueryStringParameter("json", json);
+        HttpUtils http = new HttpUtils();
+        http.send(HttpRequest.HttpMethod.POST,
+                ConstantValues.GET_PARENTLIST_URL,
+                params,
+                new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        String json = responseInfo.result;
+                        Log.e("tag==", json);
+                        try {
+                            JSONObject object = new JSONObject(json);
+                            int Code = object.getInt("Code");
+                            if (Code == 0) {
+//                                JSONObject objectDate = object.getJSONObject("Data");
+                                classBean = Json_U.fromJson(json, ClassBean.class);
+                                adapterClass = new ClassListDataAdapter(classBean.getData());
+                                gridView.setAdapter(adapterClass);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        ToastUtils.showShort(mActivity, "网络异常，加载数据失败");
+                    }
+                });
     }
 
 
@@ -151,6 +197,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 限时抢购适配器
+     */
     public class HomeListDataAdapter extends BaseAdapter {
 
         @Override
@@ -186,11 +235,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * 分类适配器
+     */
     public class ClassListDataAdapter extends BaseAdapter {
+
+        private List<ClassBean.DataBean> mlists;
+
+        public ClassListDataAdapter(List<ClassBean.DataBean> lists) {
+            this.mlists = lists;
+        }
 
         @Override
         public int getCount() {
-            return resourses.length;
+            return mlists.size();
         }
 
         @Override
@@ -216,12 +274,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 holder = (Holder) convertView.getTag();
             }
             Glide.with(mActivity)
-                    .load(resourses[position])
+                    .load(mlists.get(position).getPic())
+                    .placeholder(R.drawable.shape_pic_loaderr_bg)
+                    .error(R.drawable.shape_pic_loaderr_bg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .crossFade()
                     .dontAnimate()
                     .into(holder.imgClassIcon);
-            holder.txtClassIcon.setText(names[position]);
+            holder.txtClassIcon.setText(mlists.get(position).getClassName());
             return convertView;
         }
 
@@ -230,4 +290,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             private TextView txtClassIcon;
         }
     }
+
 }

@@ -20,6 +20,7 @@
             android:src="@drawable/img_user_icon" />
 
         <TextView
+            android:id="@+id/txt_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -72,6 +73,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/txt_user_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

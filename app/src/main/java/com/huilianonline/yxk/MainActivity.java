@@ -168,4 +168,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         txtMine.setTextColor(Color.parseColor("#666666"));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        exit();
+    }
 }

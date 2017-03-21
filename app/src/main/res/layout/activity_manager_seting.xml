@@ -41,11 +41,14 @@
             android:src="@drawable/img_seting_phone" />
 
         <EditText
+            android:id="@+id/edt_input_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
+            android:inputType="phone"
             android:hint="请输入手机号码"
+            android:text="18563788999"
             android:singleLine="true" />
 
     </LinearLayout>
@@ -67,11 +70,13 @@
             android:src="@drawable/img_seting_ebank" />
 
         <EditText
+            android:id="@+id/edt_input_ebank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
             android:hint="请输入银行卡号"
+            android:inputType="number"
             android:singleLine="true" />
 
     </LinearLayout>
@@ -93,6 +98,7 @@
             android:src="@drawable/img_seting_name" />
 
         <EditText
+            android:id="@+id/edt_input_real_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -119,11 +125,13 @@
             android:src="@drawable/img_seting_idcard" />
 
         <EditText
+            android:id="@+id/edt_input_idcard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
             android:hint="请输入身份证号"
+            android:inputType="number"
             android:singleLine="true" />
 
     </LinearLayout>

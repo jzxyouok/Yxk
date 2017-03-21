@@ -23,7 +23,7 @@ import com.huilianonline.yxk.activity.MessageListActivity;
 import com.huilianonline.yxk.activity.OrderListActivity;
 import com.huilianonline.yxk.activity.PurchaseHistoryActivity;
 import com.huilianonline.yxk.global.Config;
-import com.huilianonline.yxk.utils.GlideRoundTransform;
+import com.huilianonline.yxk.utils.PrefUtils;
 import com.huilianonline.yxk.view.refresh.NoScrollGridView;
 
 import java.util.Objects;
@@ -39,12 +39,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private NoScrollGridView gridView;
     private MineListDataAdapter adapter;
     private int[] resourses = {R.drawable.img_mine_daishouhuo, R.drawable.img_mine_yishouhuo, R.drawable.img_mine_shoubaozhang,
-            R.drawable.img_mine_daifukuan, R.drawable.img_mine_xiaoxi};
-    private String[] names = {"待收货", "已收货", "售后保障", "待付款", "消息"};
+            R.drawable.img_mine_daifukuan, R.drawable.img_mine_xiaoxi, R.drawable.img_mine_yifukuan};
+    private String[] names = {"待收货", "已收货", "售后保障", "待付款", "消息", "已付款"};
     private TextView txtAlertAddress;
-//    private ImageView imghead;
-    private TextView txtYuE;
     private TextView txtCallPhone;
+    private TextView txtName;
+    private TextView txtAddress;
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -78,13 +79,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 4){
+                if (position == 4) {
                     Intent mIntent = new Intent();
                     mIntent.setClass(mActivity, MessageListActivity.class);
                     startActivity(mIntent);
-                }else if (position == 2){
-                    Toast.makeText(mActivity,"暂未开通！",Toast.LENGTH_SHORT).show();
-                }else{
+                } else if (position == 2) {
+                    Toast.makeText(mActivity, "暂未开通！", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent mIntent = new Intent();
                     mIntent.setClass(mActivity, OrderListActivity.class);
                     startActivity(mIntent);
@@ -93,21 +94,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         });
         txtAlertAddress = (TextView) view.findViewById(R.id.txt_alert_address);
         txtAlertAddress.setOnClickListener(this);
-//        imghead = (ImageView) view.findViewById(R.id.img_header_icon);
-//        Glide.with(mActivity)
-//                .load(R.drawable.logo)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .transform(new GlideRoundTransform(mActivity,20))
-//                .crossFade()
-//                .dontAnimate()
-//                .into(imghead);
-        txtYuE = (TextView) view.findViewById(R.id.txt_zhanghuyue);
-        txtYuE.setOnClickListener(this);
+        txtName = (TextView) view.findViewById(R.id.txt_user_name);
+        txtAddress = (TextView) view.findViewById(R.id.txt_user_address);
+        txtName.setText((String) PrefUtils.getParam(mActivity,"RealName",""));
+        txtCallPhone.setText((String)PrefUtils.getParam(mActivity,"Tel",""));
+        txtAddress.setText((String)PrefUtils.getParam(mActivity,"Address",""));
     }
 
     @Override
     public void onClick(View v) {
-        if (v == imgRight||v == txtCallPhone) {
+        if (v == imgRight || v == txtCallPhone) {
             new AlertDialog.Builder(mActivity).setTitle("拨打电话").setMessage(Config.TEL_SERVER)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
@@ -124,55 +120,51 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             Intent mIntent = new Intent();
             mIntent.setClass(mActivity, AlertAddressActivity.class);
             startActivity(mIntent);
-        }else if (v == txtYuE){
-            Intent mIntent = new Intent();
-            mIntent.setClass(mActivity, PurchaseHistoryActivity.class);
-            startActivity(mIntent);
         }
     }
 
-        public class MineListDataAdapter extends BaseAdapter {
+    public class MineListDataAdapter extends BaseAdapter {
 
-            @Override
-            public int getCount() {
-                return resourses.length;
-            }
+        @Override
+        public int getCount() {
+            return resourses.length;
+        }
 
-            @Override
-            public Objects getItem(int position) {
-                return null;
-            }
+        @Override
+        public Objects getItem(int position) {
+            return null;
+        }
 
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                Holder holder = null;
-                if (convertView == null) {
-                    holder = new Holder();
-                    convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);
-                    holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
-                    holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
-                    convertView.setTag(holder);
-                } else {
-                    holder = (Holder) convertView.getTag();
-                }
-                Glide.with(mActivity)
-                        .load(resourses[position])
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .crossFade()
-                        .dontAnimate()
-                        .into(holder.imgClassIcon);
-                holder.txtClassIcon.setText(names[position]);
-                return convertView;
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Holder holder = null;
+            if (convertView == null) {
+                holder = new Holder();
+                convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);
+                holder.imgClassIcon = (ImageView) convertView.findViewById(R.id.img_class_icon);
+                holder.txtClassIcon = (TextView) convertView.findViewById(R.id.img_class_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (Holder) convertView.getTag();
             }
+            Glide.with(mActivity)
+                    .load(resourses[position])
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .crossFade()
+                    .dontAnimate()
+                    .into(holder.imgClassIcon);
+            holder.txtClassIcon.setText(names[position]);
+            return convertView;
+        }
 
-            class Holder {
-                private ImageView imgClassIcon;
-                private TextView txtClassIcon;
-            }
+        class Holder {
+            private ImageView imgClassIcon;
+            private TextView txtClassIcon;
         }
     }
+}

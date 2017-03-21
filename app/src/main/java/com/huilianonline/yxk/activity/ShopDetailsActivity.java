@@ -28,6 +28,7 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
     private View search;
     private View message;
     private View shopCar;
+    private View back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +73,11 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
         search = findViewById(R.id.layout_search);
         message = findViewById(R.id.layout_message);
         shopCar = findViewById(R.id.layout_shopCar);
+        back = findViewById(R.id.ll_title_common_back);
         search.setOnClickListener(this);
         message.setOnClickListener(this);
         shopCar.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +97,8 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
             intent.putExtra("flag_main",2);
             intent.setClass(ShopDetailsActivity.this, MainActivity.class);
             startActivity(intent);
+        }else if (v == back){
+            finish();
         }
     }
 

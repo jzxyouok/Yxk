@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -201,87 +202,22 @@ public class PhoneInfoUtil {
     }
 
     /**
-     * 获取手机的硬件信息
-     *
+     * 获取设备IMEI信息
+     * @param context
      * @return
      */
-    public String getMobileInfo() {
-        StringBuilder sb = new StringBuilder();
-        // 通过反射获取系统的硬件信息
-        try {
-            Field[] fields = Build.class.getDeclaredFields();
-            for (Field field : fields) {
-                // 暴力反射 ,获取私有的信息
-                field.setAccessible(true);
-                String name = field.getName();
-                // if("MANUFACTURER".equals(name) || "MODEL".equals(name) ||
-                // "SERIAL".equals(name)){
-                String value = field.get(null).toString();
-                sb.append(name).append("=").append(value);
-                sb.append("\n");
-                // }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
+    public String getPhoneIMEI(Context context) {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
     }
 
-    /**
-     * 将px值转换为dip或dp值，保证尺寸大小不变
-     *
-     * @param pxValue
-     * @return
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
+    public String getPhoneSIM(Context context){
+        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        String SimSerialNumber = tm.getSimSerialNumber();
+        return SimSerialNumber;
     }
 
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue
-     * @return
-     */
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue
-     * @return
-     */
-    public static int dip2px(float dipValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    /**
-     * 将px值转换为sp值，保证文字大小不变
-     *
-     * @param pxValue
-     * @return
-     */
-    public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
-    }
-
-    /**
-     * 将sp值转换为px值，保证文字大小不变
-     *
-     * @param spValue
-     * @return
-     */
-    public static int sp2px(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
-    }
 
     /**
      * 去掉指定字符串的开头和结尾的指定字符

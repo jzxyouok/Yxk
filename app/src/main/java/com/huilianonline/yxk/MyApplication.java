@@ -29,6 +29,7 @@ import java.util.List;
 public class MyApplication extends Application {
 
     private static MyApplication instance;
+
     private static Context context;
 
     public static List<BaseActivity> mActList = new ArrayList<>();
@@ -40,6 +41,7 @@ public class MyApplication extends Application {
     private static final String TAG = MyApplication.class.getName();
 
     public static final String UPDATE_STATUS_ACTION = "com.huilianonline.yxk.action.UPDATE_STATUS";
+
 
     public static MyApplication getInstance() {
         if (instance == null) {
@@ -126,7 +128,7 @@ public class MyApplication extends Application {
                 Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(context,MessageListActivity.class);
+                intent.setClass(context, MessageListActivity.class);
                 startActivity(intent);
             }
 
@@ -142,14 +144,14 @@ public class MyApplication extends Application {
             @Override
             public void onSuccess(String deviceToken) {
                 UmLog.i(TAG, "device token: " + deviceToken);
-                Log.e("tttt","device token: " + deviceToken);
+                Log.e("tttt", "device token: " + deviceToken);
                 sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
             }
 
             @Override
             public void onFailure(String s, String s1) {
                 UmLog.i(TAG, "register failed: " + s + " " + s1);
-                Log.e("tttt","register failed: " + s + " " + s1);
+                Log.e("tttt", "register failed: " + s + " " + s1);
                 sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
             }
         });

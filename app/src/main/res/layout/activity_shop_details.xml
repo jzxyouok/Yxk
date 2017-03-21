@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/progressbar_hori_webview"
@@ -12,12 +13,36 @@
         android:layout_gravity="center_horizontal"
         android:progressDrawable="@drawable/progress_color_style" />
 
-    <WebView
-        android:id="@+id/web_content"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_weight="1.0"/>
+        android:layout_height="0dp"
+        android:layout_weight="1.0">
+
+        <WebView
+            android:id="@+id/web_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:id="@+id/ll_title_common_back"
+            android:layout_width="45dp"
+            android:gravity="center|top"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_title_common_back"
+                android:layout_width="10dp"
+                android:layout_height="18dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_details_back" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,20 +52,20 @@
             android:id="@+id/layout_search"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="23dp"
-                android:src="@drawable/img_shopdetails_search"/>
+                android:src="@drawable/img_shopdetails_search" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="搜索"/>
+                android:text="搜索" />
 
         </LinearLayout>
 
@@ -48,20 +73,20 @@
             android:id="@+id/layout_message"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="23dp"
-                android:src="@drawable/img_shopdetails_message"/>
+                android:src="@drawable/img_shopdetails_message" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="消息"/>
+                android:text="消息" />
 
         </LinearLayout>
 
@@ -69,20 +94,20 @@
             android:id="@+id/layout_shopCar"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="23dp"
-                android:src="@drawable/img_shopdetails_shopcar"/>
+                android:src="@drawable/img_shopdetails_shopcar" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="购物车"/>
+                android:text="购物车" />
 
         </LinearLayout>
 
@@ -90,17 +115,17 @@
         <View
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0" />
 
         <TextView
             android:id="@+id/txt_add_cart"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:background="@color/title_layout_red"
-            android:text="加入购物车"/>
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
