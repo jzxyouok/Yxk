@@ -27,6 +27,46 @@ public class RequestBean {
 
     private String pageSize;
 
+    private String classID;
+
+    private String productName;
+
+    private String tagID;
+
+    private String keyID;
+
+
+    public String getClassID() {
+        return classID;
+    }
+
+    public void setClassID(String classID) {
+        this.classID = classID;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getTagID() {
+        return tagID;
+    }
+
+    public void setTagID(String tagID) {
+        this.tagID = tagID;
+    }
+
+    public String getKeyID() {
+        return keyID;
+    }
+
+    public void setKeyID(String keyID) {
+        this.keyID = keyID;
+    }
 
     public String getUserID() {
         return userID;

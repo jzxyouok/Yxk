@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.activity.CaptureActivity;
-import com.huilianonline.yxk.activity.ManageSetingActivity;
 import com.huilianonline.yxk.activity.SearchActivity;
 import com.huilianonline.yxk.activity.ShopListActivity;
 import com.huilianonline.yxk.global.ConstantValues;
@@ -47,10 +46,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private Activity mActivity;
     private NoScrollGridView gridView;
     private ClassListDataAdapter adapter;
-//    private int[] resourses = {R.drawable.img_class_shenghuochaoshi, R.drawable.img_class_zhongdigongju, R.drawable.img_class_jiayongdianqi,
-//            R.drawable.img_class_zhongzihuafei, R.drawable.img_class_jujiashenghuo, R.drawable.img_class_yiyaobaojian,
-//            R.drawable.img_class_huwaiyundong, R.drawable.img_class_shoujishuma, R.drawable.img_class_wanjuyuqi};
-//    private String[] names = {"生活超市", "种地工具", "家用电器", "种子化肥", "居家生活", "医药保健", "户外运动", "手机数码", "玩具乐器"};
     private ImageView search;
     private ImageView imgSaoSao;
     private ClassBean classBean;

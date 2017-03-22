@@ -16,6 +16,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/img_product_pic"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:contentDescription="@null"
@@ -30,16 +31,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/img_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Beats Solo2 Wireless头戴耳机"
+                android:text=""
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/img_product_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="炫黑色MNEN2PA/A"
+                android:text=""
                 android:textColor="@color/title_layout_black"
                 android:textSize="14sp" />
 
@@ -49,17 +52,19 @@
                 android:layout_marginTop="5dp">
 
                 <TextView
+                    android:id="@+id/img_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥2288"
+                    android:text=""
                     android:textColor="@color/title_layout_red"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/txt_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="¥2288"
+                    android:text=""
                     android:textColor="@color/title_layout_black"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -72,14 +77,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="距离结束还有"
+                    android:text=""
                     android:textColor="@color/title_layout_black"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/txt_shop_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2天01时02分30秒"
+                    android:text=""
                     android:textColor="@color/title_layout_red"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -89,6 +95,7 @@
     </LinearLayout>
 
         <TextView
+            android:id="@+id/txt_shop_shengyu_count"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:background="@color/title_layout_red"
@@ -99,7 +106,7 @@
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
             android:gravity="center"
-            android:text="仅剩2件"/>
+            android:text=""/>
 
     </RelativeLayout>
 </LinearLayout>

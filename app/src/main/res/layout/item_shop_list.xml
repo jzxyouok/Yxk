@@ -15,6 +15,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/img_product_pic"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginLeft="10dp"
@@ -29,12 +30,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/img_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="Beats Solo2 Wireless头戴耳机Wireless头戴耳机"
+                    android:text=""
                     android:textColor="@color/title_layout_black"
                     android:textSize="16sp" />
 
@@ -45,11 +47,12 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
+                        android:id="@+id/img_product_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="炫黑色MNEN2PA/A"
+                        android:text=""
                         android:textColor="@color/color_erji_content"
                         android:textSize="15sp" />
 
@@ -64,6 +67,7 @@
                         android:paddingRight="3dp"
                         android:paddingTop="1dp"
                         android:text="新品"
+                        android:visibility="gone"
                         android:textColor="@color/title_layout_black"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -76,10 +80,11 @@
                     android:gravity="center|left">
 
                     <TextView
+                        android:id="@+id/img_product_price"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="¥2288.0"
+                        android:text=""
                         android:textColor="@color/title_layout_red"
                         android:textSize="15sp" />
 
@@ -89,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
-                        android:text="¥2288.0"
+                        android:text=""
                         android:textColor="@color/color_erji_content"
                         android:textSize="14sp" />
 

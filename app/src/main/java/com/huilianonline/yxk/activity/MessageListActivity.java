@@ -15,6 +15,7 @@ import com.huilianonline.yxk.utils.Json_U;
 import com.huilianonline.yxk.utils.ToastUtils;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
+import com.huilianonline.yxk.vo.MessageBean;
 import com.huilianonline.yxk.vo.RequestBean;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -26,7 +27,10 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
+ * 消息列表
  * Created by admin on 2017/3/13.
  */
 public class MessageListActivity extends BaseActivity implements View.OnClickListener{
@@ -36,6 +40,7 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
     private PullToRefreshListView mPulllistView;
     private ListView mListView;
     private MessageAdapter adapter;
+    private MessageBean messageBean;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +59,6 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
         mPulllistView = (PullToRefreshListView) findViewById(R.id.list_message_list_data);
         mListView = mPulllistView.getRefreshableView();
         mPulllistView.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new MessageAdapter();
-        mPulllistView.setAdapter(adapter);
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -84,20 +87,23 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
         String json = Json_U.toJson(bean);
         params.addQueryStringParameter("json", json);
         HttpUtils http = new HttpUtils();
+        showWaitingDialog();
         http.send(HttpRequest.HttpMethod.POST,
                 ConstantValues.GET_MSG_LIST_URL,
                 params,
                 new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
+                        stopWaitingDialog();
                         String json = responseInfo.result;
                         Log.e("tag==", json);
                         try {
                             JSONObject object = new JSONObject(json);
                             int Code = object.getInt("Code");
                             if (Code == 0){
-                                JSONObject objectDate = object.getJSONObject("Data");
-
+                                messageBean = Json_U.fromJson(json,MessageBean.class);
+                                adapter = new MessageAdapter(messageBean.getData());
+                                mPulllistView.setAdapter(adapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -106,6 +112,7 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        stopWaitingDialog();
                         ToastUtils.showShort(MessageListActivity.this, "网络异常，加载数据失败");
                     }
                 });
@@ -113,9 +120,15 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 
     private class MessageAdapter extends BaseAdapter{
 
+        private List<MessageBean.DataBean> mlists;
+
+        public MessageAdapter( List<MessageBean.DataBean> lists){
+            this.mlists = lists;
+        }
+
         @Override
         public int getCount() {
-            return 10;
+            return mlists.size();
         }
 
         @Override
@@ -134,14 +147,20 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
             if (convertView == null) {
                 holder = new Holder();
                 convertView = LayoutInflater.from(MessageListActivity.this).inflate(R.layout.item_message_data, parent,false);
+                holder.txtTime = (TextView) convertView.findViewById(R.id.txt_msg_create_time);
+                holder.txtContent = (TextView) convertView.findViewById(R.id.txt_msg_create_content);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();
+                holder.txtTime.setText(mlists.get(position).getCreateTime());
+                holder.txtContent.setText(mlists.get(position).getIntro());
             }
             return convertView;
         }
 
         class Holder {
+            TextView txtTime;
+            TextView txtContent;
         }
     }
 }

@@ -23,7 +23,7 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
 
     public WebView mWebview;
     private ProgressBar progressbar_hori_webview;// webview 加载的进度
-    private String url = "http://yxkservice.huilianonline.com/Product/ProductDetail";
+    private String url = "http://yxkservice.huilianonline.com/Product/ProductDetail?productID=8";
     private TextView txtAddCar;
     private View search;
     private View message;

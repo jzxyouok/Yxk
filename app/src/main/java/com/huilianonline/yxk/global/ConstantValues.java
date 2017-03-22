@@ -11,6 +11,8 @@ public class ConstantValues {
 
     public static final String GET_PARENTLIST_URL = BASE_URL + "ProductClass/GetList";//读取全部大分类
 
+    public static final String GET_PRODUCT_LIST_URL = BASE_URL + "Product/GetProductList";//读取产品列表
+
     public static final String GET_MSG_LIST_URL = BASE_URL + "msg/GetMsgList";//消息相关
 
 
