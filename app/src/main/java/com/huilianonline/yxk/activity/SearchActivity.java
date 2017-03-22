@@ -12,6 +12,7 @@ import com.huilianonline.yxk.R;
 public class SearchActivity extends BaseActivity implements View.OnClickListener{
 
     private TextView txtCancle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
