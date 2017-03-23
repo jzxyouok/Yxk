@@ -120,6 +120,15 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
 
+        <!-- 扫一扫页 -->
+        <activity
+            android:name=".activity.H5Activity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+
         <!-- 应用统计推送 -->
         <meta-data android:value="58cb43e44ad156159f0023da" android:name="UMENG_APPKEY"/>
         <meta-data android:value="${UMENG_CHANNEL_MARKET}" android:name="UMENG_CHANNEL"/>

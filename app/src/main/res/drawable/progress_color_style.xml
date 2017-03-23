@@ -9,8 +9,8 @@
                 <corners android:radius="5dip" />
 
                 <gradient
-                    android:endColor="@color/green"
-                    android:startColor="@color/green" />
+                    android:endColor="@color/title_layout_red"
+                    android:startColor="@color/title_layout_red" />
             </shape>
         </clip>
     </item>

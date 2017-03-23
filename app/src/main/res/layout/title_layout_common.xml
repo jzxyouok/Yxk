@@ -19,6 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
+            android:layout_gravity="center"
             android:src="@drawable/img_class_back" />
 
     </LinearLayout>

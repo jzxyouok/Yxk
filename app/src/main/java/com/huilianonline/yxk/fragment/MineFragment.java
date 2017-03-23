@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huilianonline.yxk.R;
 import com.huilianonline.yxk.activity.AlertAddressActivity;
+import com.huilianonline.yxk.activity.H5Activity;
 import com.huilianonline.yxk.activity.MessageListActivity;
 import com.huilianonline.yxk.activity.OrderListActivity;
 import com.huilianonline.yxk.activity.PurchaseHistoryActivity;
@@ -84,7 +85,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     mIntent.setClass(mActivity, MessageListActivity.class);
                     startActivity(mIntent);
                 } else if (position == 2) {
-                    Toast.makeText(mActivity, "暂未开通！", Toast.LENGTH_SHORT).show();
+                    Intent mIntent = new Intent();
+                    mIntent.setClass(mActivity, H5Activity.class);
+                    startActivity(mIntent);
                 } else {
                     Intent mIntent = new Intent();
                     mIntent.setClass(mActivity, OrderListActivity.class);
