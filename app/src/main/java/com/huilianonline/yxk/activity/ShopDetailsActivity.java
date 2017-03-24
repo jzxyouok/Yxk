@@ -48,6 +48,7 @@ public class ShopDetailsActivity extends BaseActivity implements View.OnClickLis
         webseting.setJavaScriptEnabled(true);
         webseting.setBuiltInZoomControls(true);
         webseting.setSupportZoom(true);
+        webseting.setDisplayZoomControls(false);//不显示webview缩放按钮
         // 支持保存数据
         webseting.setSaveFormData(false);
         webseting.setDomStorageEnabled(true);

@@ -43,6 +43,7 @@ public class H5Activity extends BaseActivity implements View.OnClickListener {
         webseting.setSupportZoom(true);
         // 支持保存数据
         webseting.setSaveFormData(false);
+        webseting.setDisplayZoomControls(false);//不显示webview缩放按钮
         webseting.setDomStorageEnabled(true);
         String appCacheDir = getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
         webseting.setAppCachePath(appCacheDir);
