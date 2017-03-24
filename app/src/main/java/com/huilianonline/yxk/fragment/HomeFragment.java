@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,9 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,6 +65,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private TextView txtAlertAddress;
     private ClassBean classBean;
     private ProductListBean productListBean;
+    private CountDownTimer countDownTimer;
 
     @Override
     public void onAttach(Activity activity) {
@@ -79,6 +84,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        countDownTimer.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        countDownTimer.cancel();
     }
 
     private void initView(View view) {
@@ -108,7 +125,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
-
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -127,6 +143,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(mIntent);
             }
         });
+
+        countDownTimer = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                adapter.notifyDataSetChanged();
+                if (countDownTimer!=null){
+                    this.start();
+                }
+            }
+        };
 
     }
 
@@ -161,9 +191,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             JSONObject object = new JSONObject(json);
                             int Code = object.getInt("Code");
                             if (Code == 0) {
-                                productListBean = Json_U.fromJson(json,ProductListBean.class);
+                                productListBean = Json_U.fromJson(json, ProductListBean.class);
                                 adapter = new HomeListDataAdapter(productListBean.getData());
-                                mListView.removeHeaderView(header);
                                 mListView.addHeaderView(header);
                                 mPulllistView.setAdapter(adapter);
                             }
@@ -251,7 +280,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         private List<ProductListBean.DataBean> mlists;
 
-        public HomeListDataAdapter(List<ProductListBean.DataBean> lists){
+        public HomeListDataAdapter(List<ProductListBean.DataBean> lists) {
             this.mlists = lists;
         }
 
@@ -272,10 +301,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Holder holder = null;
+            Holder holder;
             if (convertView == null) {
                 holder = new Holder();
-                convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_home_data, parent,false);
+                convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_home_data, parent, false);
                 holder.imgPic = (ImageView) convertView.findViewById(R.id.img_product_pic);
                 holder.txtName = (TextView) convertView.findViewById(R.id.img_product_name);
                 holder.txtStyle = (TextView) convertView.findViewById(R.id.img_product_style);
@@ -286,23 +315,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();
-                holder.txtOldPrice.getPaint().setAntiAlias(true);
-                holder.txtOldPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
-                holder.txtOldPrice.setText("¥"+mlists.get(position).getPrice());
-                Glide.with(mActivity)
-                        .load(mlists.get(position).getPic())
-                        .placeholder(R.drawable.shape_pic_loaderr_bg)
-                        .error(R.drawable.shape_pic_loaderr_bg)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .crossFade()
-                        .dontAnimate()
-                        .into(holder.imgPic);
-                holder.txtName.setText(mlists.get(position).getProductName());
-                holder.txtStyle.setText(mlists.get(position).getProductName2());
-                holder.txtPrice.setText("¥"+mlists.get(position).getSalePrice());
-                holder.txtShopTimer.setText(mlists.get(position).getLimitTime());
-                holder.txtShopCount.setText("仅剩"+mlists.get(position).getLimitNum()+"件");
             }
+            holder.txtOldPrice.getPaint().setAntiAlias(true);
+            holder.txtOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
+            holder.txtOldPrice.setText("¥" + mlists.get(position).getPrice());
+            Glide.with(mActivity)
+                    .load(mlists.get(position).getPic())
+                    .placeholder(R.drawable.shape_pic_loaderr_bg)
+                    .error(R.drawable.shape_pic_loaderr_bg)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .crossFade()
+                    .dontAnimate()
+                    .into(holder.imgPic);
+            holder.txtName.setText(mlists.get(position).getProductName());
+            holder.txtStyle.setText(mlists.get(position).getProductName2());
+            holder.txtPrice.setText("¥" + mlists.get(position).getSalePrice());
+            long end = formatTimeToMillis(mlists.get(position).getLimitTime())/1000;
+//            long start = formatTimeToMillis(mlists.get(position).getCurTime())/1000;
+            long between = end - System.currentTimeMillis()/1000;
+            String seconds = formatData(between % 60);
+            String minites = formatData(between % 3600 / 60);
+            String hours = formatData(between % (24 * 3600) / 3600);
+            String days = formatData(between / (24 * 3600));
+            holder.txtShopTimer.setText(days+"天"+hours +"时"+ minites +"分"+ seconds+"秒");
+            holder.txtShopCount.setText("仅剩" + mlists.get(position).getStorNum() + "件");
             return convertView;
         }
 
@@ -314,6 +350,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             TextView txtOldPrice;
             TextView txtShopTimer;
             TextView txtShopCount;
+        }
+
+        private String formatData(long l) {
+            return String.format("%02d", l);
+        }
+
+        private long formatTimeToMillis(String dateString) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+            Date date = null;
+            try {
+                date = sdf.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date.getTime();
         }
     }
 
@@ -346,7 +397,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Holder holder = null;
+            Holder holder;
             if (convertView == null) {
                 holder = new Holder();
                 convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_class, null);

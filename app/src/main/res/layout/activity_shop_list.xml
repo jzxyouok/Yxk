@@ -124,13 +124,24 @@
         android:layout_gravity="top"
         android:background="@color/line_seperate" />
 
-
-    <com.huilianonline.yxk.view.refresh.PullToRefreshListView
-        android:id="@+id/list_shop_list_data"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_emputy_grey"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+        android:layout_height="match_parent">
+
+        <com.huilianonline.yxk.view.refresh.PullToRefreshListView
+            android:id="@+id/list_shop_list_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_emputy_grey"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+
+        <View
+            android:id="@+id/hint"
+            android:visibility="gone"
+            android:background="@color/black"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+    </FrameLayout>
 
 </LinearLayout>

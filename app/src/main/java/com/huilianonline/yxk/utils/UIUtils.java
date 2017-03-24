@@ -1,5 +1,6 @@
 package com.huilianonline.yxk.utils;
 
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * UI通用方法类
@@ -194,5 +196,16 @@ public class UIUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 隐藏软键盘
+     * @param context Activity
+     */
+    public static void hideSoftInput(Activity context) {
+        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (context.getCurrentFocus() !=null){
+            imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

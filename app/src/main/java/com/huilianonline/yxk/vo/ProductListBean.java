@@ -88,6 +88,15 @@ public class ProductListBean {
         private int LimitNum;
         private String LimitTime;
         private int StorNum;
+        private String CurTime;
+
+        public String getCurTime() {
+            return CurTime;
+        }
+
+        public void setCurTime(String curTime) {
+            CurTime = curTime;
+        }
 
         public int getProductId() {
             return ProductId;

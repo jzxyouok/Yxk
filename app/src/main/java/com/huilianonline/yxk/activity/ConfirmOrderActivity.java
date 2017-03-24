@@ -1,23 +1,28 @@
 package com.huilianonline.yxk.activity;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huilianonline.yxk.R;
+import com.huilianonline.yxk.utils.Dip2PxUtils;
 import com.huilianonline.yxk.view.refresh.PullToRefreshBase;
 import com.huilianonline.yxk.view.refresh.PullToRefreshListView;
 
 /**
  * Created by admin on 2017/3/13.
  */
-public class ConfirmOrderActivity extends BaseActivity implements View.OnClickListener{
+public class ConfirmOrderActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView title;
     private View back;
@@ -25,6 +30,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private ListView mListView;
     private ConfirmOrderAdapter adapter;
     private TextView txtSenderOrder;
+    public Dialog dialog;//分享框
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         mListView = mPulllistView.getRefreshableView();
         mPulllistView.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new ConfirmOrderAdapter();
-        View header = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.header_confirm_order,null);
+        View header = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.header_confirm_order, null);
         mListView.addHeaderView(header);
         mPulllistView.setAdapter(adapter);
         mPulllistView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -61,14 +67,31 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v == back){
+        if (v == back) {
             finish();
-        }else if (v == txtSenderOrder){
-            Intent intent = new Intent();
-            intent.setClass(ConfirmOrderActivity.this,BalanceActivity.class);
-            startActivity(intent);
+        } else if (v == txtSenderOrder) {
+            showPayDailog();
+
         }
     }
+
+    /**
+     * 支付对话框
+     */
+    private void showPayDailog() {
+        View diaView = View.inflate(ConfirmOrderActivity.this, R.layout.dialog_pay_menu, null);
+        dialog = new Dialog(ConfirmOrderActivity.this, R.style.shop_pay_dialog);
+        dialog.setContentView(diaView);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = FrameLayout.LayoutParams.MATCH_PARENT;
+        lp.height = Dip2PxUtils.dip2px(ConfirmOrderActivity.this, 175);
+        window.setWindowAnimations(R.style.dialog_anim);
+        dialog.show();
+    }
+
 
     private class ConfirmOrderAdapter extends BaseAdapter {
 
@@ -92,14 +115,14 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             Holder holder = null;
             if (convertView == null) {
                 holder = new Holder();
-                convertView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_confirm_order_list, parent,false);
+                convertView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_confirm_order_list, parent, false);
                 holder.txtOldPrice = (TextView) convertView.findViewById(R.id.txt_old_price);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();
             }
             holder.txtOldPrice.getPaint().setAntiAlias(true);
-            holder.txtOldPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
+            holder.txtOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
             return convertView;
         }
 

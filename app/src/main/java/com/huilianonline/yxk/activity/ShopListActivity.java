@@ -57,6 +57,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
     public View swichView;
     private PopupWindow mSwichPop;
     private ProductListBean productListBean;
+    private View hintView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         saosao = (ImageView) findViewById(R.id.img_saoyisao);
         back.setOnClickListener(this);
         saosao.setOnClickListener(this);
+        hintView = findViewById(R.id.hint);
         layoutListShaixuan = findViewById(R.id.ll_list_shaixuan);
         layoutListShaixuan.setOnClickListener(this);
         swichView = LayoutInflater.from(ShopListActivity.this).inflate(R.layout.alert_dailog_holiday, null);
@@ -167,7 +169,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mSwichPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-
+                hintView.setVisibility(View.GONE);
             }
         });
     }
@@ -179,6 +181,10 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         ViewHelper.setTranslationY(popView, -(PhoneInfoUtil.getInstance().getDisplayHeight(ShopListActivity.this)));
         ViewPropertyAnimator.animate(popView).translationY(0f).setDuration(500).start();
         ViewPropertyAnimator.animate(popView).translationY(0f).setDuration(500).setInterpolator(new DecelerateInterpolator()).start();
+
+        hintView.setVisibility(View.VISIBLE);
+        ViewHelper.setAlpha(hintView, 0f);
+        ViewPropertyAnimator.animate(hintView).alpha(0.6f).setDuration(400).start();
     }
 
     private class ShopListAdapter extends BaseAdapter {

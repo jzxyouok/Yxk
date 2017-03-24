@@ -62,7 +62,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <!-- 结算页 -->
+        <!-- 结算页 废弃-->
         <activity
             android:name=".activity.BalanceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
